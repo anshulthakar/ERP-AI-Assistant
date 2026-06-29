@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-08 15:35:48.583396",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enable_ai",
+  "ai_provider",
+  "base_url",
+  "column_break_zyln",
+  "api_key",
+  "default_model",
+  "section_break_bwwe",
+  "max_tokens",
+  "temperature",
+  "column_break_lnos",
+  "enable_logs",
+  "debug_mode",
+  "section_break_guzk",
+  "system_prompt"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enable_ai",
+   "fieldtype": "Check",
+   "label": "Enable AI"
+  },
+  {
+   "fieldname": "ai_provider",
+   "fieldtype": "Select",
+   "label": "AI Provider",
+   "options": "Ollama\nOpenAI\nGroq"
+  },
+  {
+   "fieldname": "base_url",
+   "fieldtype": "Data",
+   "label": "Base URL"
+  },
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Password",
+   "label": "API Key"
+  },
+  {
+   "fieldname": "default_model",
+   "fieldtype": "Data",
+   "label": "Default Model"
+  },
+  {
+   "fieldname": "column_break_zyln",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_guzk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "system_prompt",
+   "fieldtype": "Code",
+   "label": "System Prompt"
+  },
+  {
+   "fieldname": "section_break_bwwe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "max_tokens",
+   "fieldtype": "Int",
+   "label": "Max Tokens"
+  },
+  {
+   "fieldname": "temperature",
+   "fieldtype": "Float",
+   "label": "Temperature"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_logs",
+   "fieldtype": "Check",
+   "label": "Enable Logs"
+  },
+  {
+   "default": "0",
+   "fieldname": "debug_mode",
+   "fieldtype": "Check",
+   "label": "Debug Mode"
+  },
+  {
+   "fieldname": "column_break_lnos",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-05-08 15:53:44.918112",
+ "modified_by": "Administrator",
+ "module": "Frappe AI",
+ "name": "AI Assistant Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

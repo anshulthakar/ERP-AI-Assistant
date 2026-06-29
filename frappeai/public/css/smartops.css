@@ -1,0 +1,109 @@
+/* SmartOps Global Styles */
+
+/* Chat message animations */
+.smartops-msg {
+    animation: smartops-fade-in 0.2s ease-out;
+}
+
+@keyframes smartops-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Chip hover */
+.smartops-chip:hover {
+    background: var(--primary-light) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+    transition: all 0.15s;
+}
+
+/* Scrollbar styling for chat */
+.smartops-messages::-webkit-scrollbar {
+    width: 4px;
+}
+.smartops-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+.smartops-messages::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+/* Document reader drop zone */
+.smartops-drop-zone {
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 48px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.smartops-drop-zone:hover,
+.smartops-drop-zone.drag-over {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+/* Insight cards */
+.smartops-insight-card {
+    background: var(--fg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+.smartops-insight-card h5 {
+    font-weight: 500;
+    margin: 0 0 8px;
+    color: var(--heading-color);
+}
+.smartops-insight-card .insight-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+.smartops-insight-card .insight-content {
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    color: var(--text-color);
+}
+
+/* Dashboard widgets */
+.smartops-stat {
+    background: var(--fg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 16px 20px;
+    flex: 1;
+    min-width: 140px;
+}
+.smartops-stat .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+.smartops-stat .value {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--heading-color);
+}
+.smartops-stat .change {
+    font-size: 12px;
+    margin-top: 4px;
+}
+.smartops-stat .change.positive { color: var(--green); }
+.smartops-stat .change.negative { color: var(--red); }
+
+/* Badge */
+.smartops-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 500;
+}
+.smartops-badge.green { background: var(--green-highlight); color: var(--green); }
+.smartops-badge.orange { background: var(--orange-highlight); color: var(--orange); }
+.smartops-badge.red { background: var(--red-highlight); color: var(--red); }

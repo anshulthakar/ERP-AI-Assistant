@@ -12,7 +12,7 @@ app_license = "mit"
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
-# 	{
+# 	
 # 		"name": "frappeai",
 # 		"logo": "/assets/frappeai/logo.png",
 # 		"title": "Frappe AI",
@@ -41,6 +41,10 @@ app_license = "mit"
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
+
+page_js = {
+    "ai-chat": "public/js/ai_chat.js"
+}
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}

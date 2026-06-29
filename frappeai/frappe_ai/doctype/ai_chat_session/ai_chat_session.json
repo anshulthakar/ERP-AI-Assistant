@@ -1,0 +1,95 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-08 16:44:25.012877",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "session_title",
+  "user",
+  "context_type",
+  "status",
+  "column_break_chim",
+  "started_on",
+  "last_activity",
+  "total_messages",
+  "model"
+ ],
+ "fields": [
+  {
+   "fieldname": "session_title",
+   "fieldtype": "Data",
+   "label": "Session Title"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "default": "general",
+   "fieldname": "context_type",
+   "fieldtype": "Select",
+   "label": "Context Type",
+   "options": "general\nfinance\nsales\ninventory\nhr"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Active\nClosed\nArchived"
+  },
+  {
+   "fieldname": "started_on",
+   "fieldtype": "Datetime",
+   "label": "Started On"
+  },
+  {
+   "fieldname": "last_activity",
+   "fieldtype": "Datetime",
+   "label": "Last Activity"
+  },
+  {
+   "fieldname": "total_messages",
+   "fieldtype": "Int",
+   "label": "Total Messages"
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model"
+  },
+  {
+   "fieldname": "column_break_chim",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-05-08 16:47:20.454755",
+ "modified_by": "Administrator",
+ "module": "Frappe AI",
+ "name": "AI Chat Session",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
