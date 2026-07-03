@@ -35,6 +35,12 @@ SALES_ORDER_FIELDS = [
 	"per_delivered",
 ]
 
+# Max raw records ever sent into the LLM prompt. Keep this small -- the
+# true total/sum is always computed separately via frappe.db.count/sql
+# regardless of this cap, so users still get accurate totals even when
+# hundreds or thousands of records match.
+DISPLAY_LIMIT = 10
+
 STATUS_KEYWORDS = {
 	"Cancelled": ["cancel", "cancelled", "canceled"],
 	"Closed": ["closed"],
@@ -265,6 +271,13 @@ def get_sales_order_data(message: str) -> dict:
 	status = _parse_status(msg)
 	if status:
 		filters["status"] = status
+	elif "pending" in msg:
+		# Generic "pending" (without a specific delivery/billing qualifier
+		# like "pending delivery") wasn't matching anything in STATUS_KEYWORDS,
+		# so queries like "show pending sales orders" returned ALL submitted
+		# orders -- including Completed ones. "Pending" really means: not yet
+		# Completed, Closed, or Cancelled.
+		filters["status"] = ["not in", ["Completed", "Closed", "Cancelled"]]
 
 	customer = _parse_customer(message)
 	if customer:
@@ -355,13 +368,35 @@ def get_sales_order_data(message: str) -> dict:
 		filters=query_filters,
 		fields=SALES_ORDER_FIELDS,
 		order_by="transaction_date desc",
-		limit=20,
+		limit=DISPLAY_LIMIT,
 	)
 
+	# Separately count the TRUE total matching the filters, independent of
+	# the DISPLAY_LIMIT cap above. This is critical at scale: if 500 orders
+	# match, we never want to pull all 500 into the LLM prompt (slow, eats
+	# the context window, and costs more to generate). We show a small
+	# sample but always report the real total/sum so the user isn't misled
+	# into thinking only DISPLAY_LIMIT records exist.
+	total_matching = frappe.db.count("Sales Order", filters=query_filters)
+	total_value = frappe.db.sql(
+		"""
+		SELECT SUM(grand_total) FROM `tabSales Order` WHERE {where}
+		""".format(where=_build_where_clause(filters)[0]),
+		_build_where_clause(filters)[1],
+	)[0][0] or 0
+
 	summary = {
-		"count": len(records),
-		"sum_grand_total": sum(row.get("grand_total") or 0 for row in records),
+		"count_shown": len(records),
+		"total_matching": total_matching,
+		"sum_grand_total_shown": sum(row.get("grand_total") or 0 for row in records),
+		"sum_grand_total_all_matching": total_value,
 	}
+	if total_matching > len(records):
+		summary["note"] = (
+			f"Showing {len(records)} of {total_matching} matching records "
+			f"(most recent first). Totals above reflect ALL {total_matching} "
+			f"matching records, not just the ones shown."
+		)
 
 	return {
 		"doctype": "Sales Order",

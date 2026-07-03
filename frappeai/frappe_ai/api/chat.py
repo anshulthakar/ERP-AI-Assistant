@@ -59,27 +59,37 @@ Question:
 {message}
 
 Instructions:
-- Answer briefly
+- Present each record from the ERP Data section as a separate bullet point,
+  preserving its fields (name, customer, status, dates, amounts, etc.) --
+  do NOT collapse multiple records into a single summary sentence.
+- Keep any commentary around the data brief; the data itself should stay
+  in the same structured, itemized format shown in the ERP Data section.
 - Use ERP data only
 - Be professional
-- If no data found say clearly
+- The "ERP Data" section above is the ONLY source of truth. If it contains
+  records, you MUST describe them -- never say data is "not available" or
+  "couldn't be found" when records are listed above.
+- Only say no data was found if the ERP Data section literally says
+  "No ERP data found" or is empty.
 """
 
 		# -------------------------------------------------
 		# Ollama Request
 		# -------------------------------------------------
 		# num_predict caps how many tokens Ollama is allowed to generate.
-		# A fixed low value (was 120) cuts the reply off mid-sentence once
-		# there's more than a couple of records to describe. Scale it with
-		# the amount of ERP data we're feeding in, with a sane floor/ceiling.
-		num_predict = min(max(200, len(formatted_context) // 2), 800)
+		# A fixed low value (was 120) cut replies off mid-sentence once there
+		# was more than a couple of records to describe. Scale it with the
+		# amount of ERP data we're feeding in, balanced against response time
+		# -- local generation is sequential, so higher caps directly add to
+		# latency. 400 is enough for ~15-20 rows without ballooning wait time.
+		num_predict = min(max(150, len(formatted_context) // 3), 400)
 
 		payload = {
 			"model": settings.default_model,
 			"prompt": prompt,
 			"stream": False,
 			"options": {
-				"temperature": 0.3,
+				"temperature": 0.1,
 				"num_predict": num_predict,
 				"top_p": 0.9,
 			},
